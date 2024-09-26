@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="">
+      <label for="">Number :</label>
+      <input type="number" id="number" /><br /><br />
+      <label for="">Name :</label>
+      <input type="text" id="name" /><br /><br />
+      <label for="">Clase :</label>
+      <input type="number" id="clase" /><br /><br />
+      <label for="">Subject :</label>
+      <input type="text" id="subject" /><br /><br />
+      <label for="">Mark :</label>
+      <input type="number" id="Mark" /><br /><br />
+    </form>
+    <br />
+    <button type="button" id="submit" onclick="getdata()">submit</button>
+    <button type="button" id="update" style="display: none">update</button
+    ><br /><br />
+
+    <table border="1">
+      <thead>
+        <th>number</th>
+        <th>name</th>
+        <th>clase</th>
+        <th>subject</th>
+        <th>mark</th>
+        <th>edit</th>
+        <th>delet</th>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <br />
+    <script>
+      var local = JSON.parse(localStorage.getItem("local"));
+      if (local == null) local = [];
+      console.log(local);
+
+      function getdata() {
+        var info = {
+          number: "",
+          nmae: "",
+          clase: "",
+          subject: "",
+          mark: "",
+        };
+        // for (a in info) {
+        //   info[a] = document.getElementById(a).value;
+        // }
+        console.log(info);
+        localStorage.setItem("local", JSON.stringify(local));
+        displaying();
+        cleardate(info);
+      }
+
+      function displaying() {
+        document.querySelector("tbody").innerHTML = "";
+        local.forEach((info, i) => {
+          for (a in info) {
+            var mytr = document.createElement("tr");
+            mytd.innerHTML = info[a];
+            mytr.appendChild(mytd);
+          }
+          var Edittd = document.createElement("td");
+          var Deletetd = document.createElement("td");
+          mytr.appendChild(Edittd);
+          mytr.appendChild(deletetd);
+
+          var editbutton = document.createElement("button");
+          editbutton.setattribute("onclick", "getdedit(" + 1 + ")");
+          editbutton.innerHTML = "Edit";
+          var deletebutton = document.createElement("button");
+          deletebutton.setattribute("onclick", "getdelete(" + 1 + ")");
+          deletebutton.innerHTML = "delete";
+          Edittd.appendChild(editbutton);
+          deletetd.appendChild(deletebutton);
+
+          document.querySelector("tbody").appendChild(mytr);
+        });
+      }
+      displaying();
+
+      function getdelete(i) {
+        local.splice(i, 1);
+        localStorage.setItem("local", JSON.stringify(local));
+        displaying();
+      }
+
+      function cleardate(info) {
+        for (a in info) {
+          document.getElementById(a).value = ""
+        }
+      }
+      function update() {
+        var info = {
+          number: "",
+          nmae: "",
+          clase: "",
+          subject: "",
+          mark: "",
+        };
+        for (a in info) {
+          info[a] = document.getElementById(a).value;
+        }
+      }
+    </script>
+  </body>
+</html>
