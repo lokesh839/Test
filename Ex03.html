@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Movie Ticket Booking</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[url('https://labcentral.corelaboratory.abbott/content/dam/add/customerportal/global/hero-img.png')] bg-cover bg-center bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">
+  <div class="min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+      <h2 class="text-2xl font-bold text-center mb-6">Book Your Movie Ticket</h2>
+
+      <form id="bookingForm">
+        
+        <div class="mb-4">
+          <label for="movie" class="block text-gray-700 text-sm font-bold mb-2">Choose a Movie</label>
+          <select id="movie" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500">
+            <option value="Goat ">Goat -$10</option>
+            <option value="baby ">baby - $8</option>
+            <option value="jai">jai - $6</option>
+            <option value="funday">funday- $7</option>
+          </select>
+        </div>
+
+    
+        <div class="mb-4">
+          <label for="tickets" class="block text-gray-700 text-sm font-bold mb-2">Number of Tickets</label>
+          <input
+            type="number"
+            id="tickets"
+            min="1"
+            value="1"
+            class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
+          />
+        </div>
+
+        
+        <div class="mb-6">
+          <p class="text-gray-700 text-sm font-bold mb-2">Total Price: <span id="totalPrice" class="text-green-600">$10</span></p>
+        </div>
+
+        
+        <div class="flex justify-center">
+          <button
+            type="submit"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline"
+          >
+            Book Now
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+
+    const movieSelect = document.getElementById('movie');
+    const ticketsInput = document.getElementById('tickets');
+    const totalPrice = document.getElementById('totalPrice');
+
+
+    const moviePrices = {
+      'Goat': 10,
+      'baby': 8,
+      'jai': 6,
+      'funday': 7,
+    };
+
+
+    function updateTotalPrice() {
+      const movie = movieSelect.value;
+      const ticketCount = parseInt(ticketsInput.value, 10);
+      const pricePerTicket = moviePrices[movie];
+      const total = pricePerTicket * ticketCount;
+      totalPrice.textContent = `$${total}`;
+    }
+
+
+    movieSelect.addEventListener('change', updateTotalPrice);
+    ticketsInput.addEventListener('input', updateTotalPrice);
+
+
+    document.getElementById('bookingForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      alert('Movie ticket booked successfully!');
+    });
+  </script>
+</body>
+</html>
